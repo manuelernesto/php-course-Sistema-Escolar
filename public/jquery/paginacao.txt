@@ -1,0 +1,24 @@
+function pageselectCallback(page_index, jq) {
+                        var items_per_page = 12;
+                        var max_elem = Math.min((page_index + 1) * items_per_page, data.length);
+                        var newcontent = '';
+
+                        for (var i = page_index * items_per_page; i < max_elem; i++) {
+                    
+                        }
+                        lista_empresas.html(conteudo);
+                        return false;
+                    }
+
+                    function getOptionsFromForm() {
+                        var opt = {
+                            callback: pageselectCallback
+                        };
+                        return opt;
+                    }
+                    var optInit = getOptionsFromForm();
+                    $(paginacao).pagination(data.length, optInit);
+
+
+tinyMCE.execCommand('mceAddControl',true, 'mensagem_editada' );
+tinyMCE.execCommand('mceRemoveControl', true, 'mensagem_editada');

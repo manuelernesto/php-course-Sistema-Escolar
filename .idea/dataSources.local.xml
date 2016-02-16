@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - sisEscolar@localhost" uuid="67e742d5-58cb-41c5-ad84-d18bf52d88bc">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>sisEscolar.*</schema-pattern>
+      <default-schemas>sisEscolar.*</default-schemas>
+    </data-source>
+  </component>
+</project>

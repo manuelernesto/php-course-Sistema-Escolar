@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0
+}
+
+#container {
+    width: 800px;
+    margin: 0 auto;
+    font-family: 'Anaheim';
+}
+
+#login {
+    font-family: 'Anaheim';
+    background-color: #F0F0F0;
+    width: 600px;
+    margin: 0 auto;
+    padding: 10px;
+    margin-top: 10px;
+    border: solid 2px #EAE9E3;
+    font-weight: bold;
+}
+
+#login label {
+    font-size: 20px;
+    color: #999;
+    font-weight: lighter;
+}
+
+#mensagem {
+    margin: 0 auto;
+    margin-top: 10px;
+    text-align: center;
+}
