@@ -1,6 +1,6 @@
 <?php
 include 'helpers/config.php';
-require_once __DIR__ . '/../lib/Inflector.php';
+require_once dirname(__FILE__) . '/../lib/Inflector.php';
 
 class InflectorTest extends SnakeCase_PHPUnit_Framework_TestCase
 {
@@ -19,11 +19,6 @@ class InflectorTest extends SnakeCase_PHPUnit_Framework_TestCase
 	{
 		$this->assert_equals('angry_people',$this->inflector->tableize('AngryPerson'));
 		$this->assert_equals('my_sqls',$this->inflector->tableize('MySQL'));
-	}
-
-	public function test_keyify()
-	{
-		$this->assert_equals('building_type_id', $this->inflector->keyify('BuildingType'));
 	}
 };
 ?>

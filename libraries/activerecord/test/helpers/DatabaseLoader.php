@@ -30,11 +30,10 @@ class DatabaseLoader
 			$this->load_fixture_data($table);
 		}
 
-		$after_fixtures = $this->db->protocol.'-after-fixtures';
 		try {
-			$this->exec_sql_script($after_fixtures);
+			$this->exec_sql_script("{$this->db->protocol}-after-fixtures");
 		} catch (Exception $e) {
-			// pass
+			// ignore
 		}
 	}
 
@@ -79,7 +78,7 @@ class DatabaseLoader
 	{
 		$tables = array();
 
-		foreach (glob(__DIR__ . '/../fixtures/*.csv') as $file)
+		foreach (glob(dirname(__FILE__) . '/../fixtures/*.csv') as $file)
 		{
 			$info = pathinfo($file);
 			$tables[] = $info['filename'];
@@ -90,7 +89,7 @@ class DatabaseLoader
 
 	public function get_sql($file)
 	{
-		$file = __DIR__ . "/../sql/$file.sql";
+		$file = dirname(__FILE__) . "/../sql/$file.sql";
 
 		if (!file_exists($file))
 			throw new Exception("File not found: $file");
@@ -100,7 +99,7 @@ class DatabaseLoader
 
 	public function load_fixture_data($table)
 	{
-		$fp = fopen(__DIR__ . "/../fixtures/$table.csv",'r');
+		$fp = fopen(dirname(__FILE__) . "/../fixtures/$table.csv",'r');
 		$fields = fgetcsv($fp);
 
 		if (!empty($fields))
@@ -109,7 +108,7 @@ class DatabaseLoader
 			$table = $this->quote_name($table);
 
 			foreach ($fields as &$name)
-				$name = $this->quote_name(trim($name));
+				$name = $this->quote_name($name);
 
 			$fields = join(',',$fields);
 

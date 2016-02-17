@@ -6,7 +6,7 @@
  * Time: 8:12 PM
  */
 
-//require 'config/config.php';
+require 'config/config.php';
 
 $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
 $senha = filter_var($_POST['senha'], FILTER_SANITIZE_STRING);
@@ -26,7 +26,7 @@ if (empty($erro)):
     $login = new libraries_Classes_Login();
     $logar = $login->logar($tipo, $_POST[$email], $_POST[$senha]);
 
-else
+else:
 
     echo $erro;
 

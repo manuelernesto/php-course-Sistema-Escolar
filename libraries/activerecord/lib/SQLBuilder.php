@@ -21,7 +21,6 @@ class SQLBuilder
 	private $offset;
 	private $group;
 	private $having;
-	private $update;
 
 	// for where
 	private $where;
@@ -156,17 +155,13 @@ class SQLBuilder
 		return $this;
 	}
 
-	public function update($mixed)
+	public function update($hash)
 	{
+		if (!is_hash($hash))
+			throw new ActiveRecordException('Updating requires a hash.');
+
 		$this->operation = 'UPDATE';
-
-		if (is_hash($mixed))
-			$this->data = $mixed;
-		elseif (is_string($mixed))
-			$this->update = $mixed;
-		else
-			throw new ActiveRecordException('Updating requires a hash or string.');
-
+		$this->data = $hash;
 		return $this;
 	}
 
@@ -331,15 +326,6 @@ class SQLBuilder
 		if ($this->where)
 			$sql .= " WHERE $this->where";
 
-		if ($this->connection->accepts_limit_and_order_for_update_and_delete())
-		{
-			if ($this->order)
-				$sql .= " ORDER BY $this->order";
-
-			if ($this->limit)
-				$sql = $this->connection->limit($sql,null,$this->limit);
-		}
-
 		return $sql;
 	}
 
@@ -388,24 +374,11 @@ class SQLBuilder
 
 	private function build_update()
 	{
-		if (strlen($this->update) > 0)
-			$set = $this->update;
-		else
-			$set = join('=?, ', $this->quoted_key_names()) . '=?';
-
-		$sql = "UPDATE $this->table SET $set";
+		$fields = $this->quoted_key_names();
+		$sql = "UPDATE $this->table SET " . join('=?, ',$fields) . '=?';
 
 		if ($this->where)
 			$sql .= " WHERE $this->where";
-
-		if ($this->connection->accepts_limit_and_order_for_update_and_delete())
-		{
-			if ($this->order)
-				$sql .= " ORDER BY $this->order";
-
-			if ($this->limit)
-				$sql = $this->connection->limit($sql,null,$this->limit);
-		}
 
 		return $sql;
 	}

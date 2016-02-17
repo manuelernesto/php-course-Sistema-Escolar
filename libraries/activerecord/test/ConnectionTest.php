@@ -26,38 +26,6 @@ class ConnectionTest extends SnakeCase_PHPUnit_Framework_TestCase
 		$this->assert_equals(3306,$info->port);
 		$this->assert_equals('dbname',$info->db);
 	}
-	
-	public function test_gh_103_sqlite_connection_string_relative()
-	{
-		$info = ActiveRecord\Connection::parse_connection_url('sqlite://../some/path/to/file.db');
-		$this->assert_equals('../some/path/to/file.db', $info->host);
-	}
-
-	/**
-	 * @expectedException ActiveRecord\DatabaseException
-	 */
-	public function test_gh_103_sqlite_connection_string_absolute()
-	{
-		$info = ActiveRecord\Connection::parse_connection_url('sqlite:///some/path/to/file.db');
-	}
-
-	public function test_gh_103_sqlite_connection_string_unix()
-	{
-		$info = ActiveRecord\Connection::parse_connection_url('sqlite://unix(/some/path/to/file.db)');
-		$this->assert_equals('/some/path/to/file.db', $info->host);
-       	
-		$info = ActiveRecord\Connection::parse_connection_url('sqlite://unix(/some/path/to/file.db)/');
-		$this->assert_equals('/some/path/to/file.db', $info->host);
-    	
-		$info = ActiveRecord\Connection::parse_connection_url('sqlite://unix(/some/path/to/file.db)/dummy');
-		$this->assert_equals('/some/path/to/file.db', $info->host);
-	}
-
-	public function test_gh_103_sqlite_connection_string_windows()
-	{
-		$info = ActiveRecord\Connection::parse_connection_url('sqlite://windows(c%3A/some/path/to/file.db)');
-		$this->assert_equals('c:/some/path/to/file.db', $info->host);
-	}
 
 	public function test_parse_connection_url_with_unix_sockets()
 	{
@@ -70,12 +38,6 @@ class ConnectionTest extends SnakeCase_PHPUnit_Framework_TestCase
 		$info = ActiveRecord\Connection::parse_connection_url('mysql://h%20az:h%40i@127.0.0.1/test?decode=true');
 		$this->assert_equals('h az',$info->user);
 		$this->assert_equals('h@i',$info->pass);
-	}
-
-	public function test_encoding()
-	{
-		$info = ActiveRecord\Connection::parse_connection_url('mysql://test:test@127.0.0.1/test?charset=utf8');
-		$this->assert_equals('utf8', $info->charset);
 	}
 }
 ?>

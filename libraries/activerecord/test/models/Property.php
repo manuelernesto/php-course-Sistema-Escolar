@@ -5,7 +5,7 @@ class Property extends ActiveRecord\Model
 	static $primary_key = 'property_id';
 
 	static $has_many = array(
-		'property_amenities',
+		array('property_amenities'),
 		array('amenities', 'through' => 'property_amenities')
 	);
 };

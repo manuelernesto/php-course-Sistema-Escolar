@@ -5,7 +5,7 @@ class Amenity extends ActiveRecord\Model
 	static $primary_key = 'amenity_id';
 
 	static $has_many = array(
-		'property_amenities'
+		array('property_amenities')
 	);
 };
 ?>
